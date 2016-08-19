@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{4467EAD7-89FF-E0C1-3586-BA778682CF20}") = "GeniKid", "Assembly-CSharp.csproj", "{44F708F6-A5E4-CE71-F988-70BD8D220A83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44F708F6-A5E4-CE71-F988-70BD8D220A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F708F6-A5E4-CE71-F988-70BD8D220A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F708F6-A5E4-CE71-F988-70BD8D220A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F708F6-A5E4-CE71-F988-70BD8D220A83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

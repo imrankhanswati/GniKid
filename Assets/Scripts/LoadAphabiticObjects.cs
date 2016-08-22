@@ -99,8 +99,6 @@ public class LoadAphabiticObjects : MonoBehaviour
                 return 25;
 
         }
-
-        return 0;
     }
 
 }

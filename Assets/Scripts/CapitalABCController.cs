@@ -9,7 +9,7 @@ public class CapitalABCController : MonoBehaviour
     [SerializeField]
     private Canvas detailCanvas;
     [SerializeField]
-    private Canvas alphaSelectCanvas;
+    private GameObject alphaSelectCanvas;
 
     public Text alphbitTxt;
     public Image itemImg;
@@ -156,8 +156,23 @@ public class CapitalABCController : MonoBehaviour
     void SetDetailCanvas(char myAlpha)
     {
         sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
-        nextButtText.text = ((char)((int)myAlpha+1)).ToString();
-        PreviousButtText.text = ((char)((int)myAlpha - 1)).ToString();
+        if (myAlpha == 'A')
+        {
+            PreviousButtText.text = "Z";
+            nextButtText.text = ((char)((int)myAlpha + 1)).ToString();
+        }
+        else if (myAlpha == 'Z')
+        {
+            nextButtText.text = "A";
+            PreviousButtText.text = ((char)((int)myAlpha - 1)).ToString();
+        }
+        else
+        {
+            nextButtText.text = ((char)((int)myAlpha + 1)).ToString();
+            PreviousButtText.text = ((char)((int)myAlpha - 1)).ToString();
+        }
+        
+        
         alphbitTxt.text = sceneObjects.alphabetText;
         itemImg.sprite = sceneObjects.itemImge;
         itemTextTxt.text = sceneObjects.itemText;

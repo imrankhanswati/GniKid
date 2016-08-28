@@ -155,13 +155,38 @@ public class CapitalABCController : MonoBehaviour
 
     void SetDetailCanvas(char myAlpha)
     {
-        sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
-        nextButtText.text = ((char)((int)myAlpha+1)).ToString();
-        PreviousButtText.text = ((char)((int)myAlpha - 1)).ToString();
-        alphbitTxt.text = sceneObjects.alphabetText;
-        itemImg.sprite = sceneObjects.itemImge;
-        itemTextTxt.text = sceneObjects.itemText;
-        detailCanvas.gameObject.SetActive(true);
-        alphaSelectCanvas.gameObject.SetActive(false);
+        if (myAlpha == 'A')
+        {
+            sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
+            nextButtText.text = ((char)((int)myAlpha + 1)).ToString();
+            PreviousButtText.text = "Z";
+            alphbitTxt.text = sceneObjects.alphabetText;
+            itemImg.sprite = sceneObjects.itemImge;
+            itemTextTxt.text = sceneObjects.itemText;
+            detailCanvas.gameObject.SetActive(true);
+            alphaSelectCanvas.gameObject.SetActive(false);
+        }
+        else if (myAlpha == 'Z')
+        {
+            sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
+            nextButtText.text = "A";
+            PreviousButtText.text = ((char)((int)myAlpha - 1)).ToString();
+            alphbitTxt.text = sceneObjects.alphabetText;
+            itemImg.sprite = sceneObjects.itemImge;
+            itemTextTxt.text = sceneObjects.itemText;
+            detailCanvas.gameObject.SetActive(true);
+            alphaSelectCanvas.gameObject.SetActive(false);
+        }
+        else
+        {
+            sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
+            nextButtText.text = ((char)((int)myAlpha + 1)).ToString();
+            PreviousButtText.text = ((char)((int)myAlpha - 1)).ToString();
+            alphbitTxt.text = sceneObjects.alphabetText;
+            itemImg.sprite = sceneObjects.itemImge;
+            itemTextTxt.text = sceneObjects.itemText;
+            detailCanvas.gameObject.SetActive(true);
+            alphaSelectCanvas.gameObject.SetActive(false);
+        }
     }
 }

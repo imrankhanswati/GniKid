@@ -15,6 +15,8 @@ public class DetaliedCanvasButtonController : MonoBehaviour
     [SerializeField]
     private Canvas AlphaSelectCanvas;
 
+    public GameController gameController;
+
     public Text alphbitTxt;
     public Image itemImg;
     public Text itemTextTxt;
@@ -30,15 +32,18 @@ public class DetaliedCanvasButtonController : MonoBehaviour
 
     public void Next()
     {
-        nextAlpha = loadAlphabaticObjects.LoadNextAlphabit(nextButtonText.text);
-        PreviousAlpha = loadAlphabaticObjects.LoadNextAlphabit(previousButtonText.text);
-        nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(nextButtonText.text);
-        nextButtonText.text = nextAlpha;
-        previousButtonText.text = PreviousAlpha;
-        alphbitTxt.text = nextScene.alphabetText;
-        itemImg.sprite = nextScene.itemImge;
-        itemTextTxt.text = nextScene.itemText;
-        Debug.Log("next: " + nextAlpha + "  pre: " + PreviousAlpha);
+        if (GameController.isCapital)
+        {
+            nextAlpha = loadAlphabaticObjects.LoadNextAlphabit(nextButtonText.text);
+            PreviousAlpha = loadAlphabaticObjects.LoadNextAlphabit(previousButtonText.text);
+            nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(nextButtonText.text);
+            gameController.PlayerAudio((char)(nextButtonText.text[0]));
+            nextButtonText.text = nextAlpha;
+            previousButtonText.text = PreviousAlpha;
+            alphbitTxt.text = nextScene.alphabetText;
+            itemImg.sprite = nextScene.itemImge;
+            itemTextTxt.text = nextScene.itemText;
+        }
     }
 
     public void Previous()
@@ -46,6 +51,7 @@ public class DetaliedCanvasButtonController : MonoBehaviour
         nextAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(nextButtonText.text);
         PreviousAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(previousButtonText.text);
         nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(previousButtonText.text);
+        gameController.PlayerAudio((char)(previousButtonText.text[0]));
         nextButtonText.text = nextAlpha;
         previousButtonText.text = PreviousAlpha;
         alphbitTxt.text = nextScene.alphabetText;

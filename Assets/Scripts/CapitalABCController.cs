@@ -9,7 +9,9 @@ public class CapitalABCController : MonoBehaviour
     [SerializeField]
     private Canvas detailCanvas;
     [SerializeField]
-    private Canvas alphaSelectCanvas;
+    private Canvas capitalAlphaSelectCanvas;
+    [SerializeField]
+    private Canvas SmallerAlphaSelectCanvas;
 
     public Text alphbitTxt;
     public Image itemImg;
@@ -19,6 +21,9 @@ public class CapitalABCController : MonoBehaviour
     public Text PreviousButtText;
     public GameController gameController;
     private SceneObjectType sceneObjects;
+
+    public GameObject nextButton;
+    public GameObject perivousButton;
 
     public bool isDetailesEnabled = true;
 
@@ -341,6 +346,9 @@ public class CapitalABCController : MonoBehaviour
         {
             if (GameController.isCapital)
             {
+                nextButton.SetActive(false);
+                perivousButton.SetActive(false);
+
                 if (myAlpha == 'A')
                 {
                     sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
@@ -350,7 +358,7 @@ public class CapitalABCController : MonoBehaviour
                     itemImg.sprite = sceneObjects.itemImge;
                     itemTextTxt.text = sceneObjects.itemText;
                     detailCanvas.gameObject.SetActive(true);
-                    alphaSelectCanvas.gameObject.SetActive(false);
+                    capitalAlphaSelectCanvas.gameObject.SetActive(false);
                 }
                 else if (myAlpha == 'Z')
                 {
@@ -361,7 +369,7 @@ public class CapitalABCController : MonoBehaviour
                     itemImg.sprite = sceneObjects.itemImge;
                     itemTextTxt.text = sceneObjects.itemText;
                     detailCanvas.gameObject.SetActive(true);
-                    alphaSelectCanvas.gameObject.SetActive(false);
+                    capitalAlphaSelectCanvas.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -372,12 +380,15 @@ public class CapitalABCController : MonoBehaviour
                     itemImg.sprite = sceneObjects.itemImge;
                     itemTextTxt.text = sceneObjects.itemText;
                     detailCanvas.gameObject.SetActive(true);
-                    alphaSelectCanvas.gameObject.SetActive(false);
+                    capitalAlphaSelectCanvas.gameObject.SetActive(false);
                 }
                 gameController.PlayerAudio(myAlpha);
             }
             else
             {
+                nextButton.SetActive(false);
+                perivousButton.SetActive(false);
+
                 if (myAlpha == 'a')
                 {
                     sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
@@ -387,7 +398,7 @@ public class CapitalABCController : MonoBehaviour
                     itemImg.sprite = sceneObjects.itemImge;
                     itemTextTxt.text = sceneObjects.SmallItemText;
                     detailCanvas.gameObject.SetActive(true);
-                    alphaSelectCanvas.gameObject.SetActive(false);
+                    SmallerAlphaSelectCanvas.gameObject.SetActive(false);
                 }
                 else if (myAlpha == 'z')
                 {
@@ -398,7 +409,7 @@ public class CapitalABCController : MonoBehaviour
                     itemImg.sprite = sceneObjects.itemImge;
                     itemTextTxt.text = sceneObjects.SmallItemText;
                     detailCanvas.gameObject.SetActive(true);
-                    alphaSelectCanvas.gameObject.SetActive(false);
+                    SmallerAlphaSelectCanvas.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -409,7 +420,7 @@ public class CapitalABCController : MonoBehaviour
                     itemImg.sprite = sceneObjects.itemImge;
                     itemTextTxt.text = sceneObjects.SmallItemText;
                     detailCanvas.gameObject.SetActive(true);
-                    alphaSelectCanvas.gameObject.SetActive(false);
+                    SmallerAlphaSelectCanvas.gameObject.SetActive(false);
                 }
                 gameController.PlayerAudio(myAlpha);
             }

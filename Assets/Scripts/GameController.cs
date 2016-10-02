@@ -10,9 +10,12 @@ public class GameController : MonoBehaviour {
     private static bool isDetailEnabled=true;
     public static bool isCapital;
 
-    public Animator alphaAnimator;
-    public Animator itemImageAnimator;
-    public Animator itemTextAnimator;
+    public Animation alphaAnimation;
+    public Animation itemImageAnimation;
+    public Animation itemTextAnimation;
+
+    public Animation nextButtonAnimation;
+    public Animation perviousButtonAnimation;
 
 	// Use this for initialization
 	void Start () {
@@ -37,9 +40,34 @@ public class GameController : MonoBehaviour {
     {
         //Animator.Play(state, layer, normalizedTime);
         //alphaAnimator.Play("PlayAlphaAnim", -1, 0f);
-        alphaAnimator.SetTrigger("PlayAlphaAnim");
-        itemImageAnimator.SetTrigger("PlayItmeAnim");
-        itemTextAnimator.SetTrigger("PlayItemNameAnim");
+        //alphaAnimator.SetTrigger("PlayAlphaAnim");
+        //itemImageAnimator.SetTrigger("PlayItmeAnim");
+        //itemTextAnimator.SetTrigger("PlayItemNameAnim");
+        if (alphaAnimation.isPlaying)
+        {
+            alphaAnimation.Play();
+        }
+        if (itemTextAnimation.isPlaying)
+        {
+            itemTextAnimation.Play();
+        }
+        if (itemImageAnimation.isPlaying)
+        {
+            itemImageAnimation.Play();
+        }
+        Debug.Log("kjkalsjfkajdsf");
+        StartCoroutine(this.EnableButtons());
+
+    }
+
+    IEnumerator EnableButtons()
+    {
+        yield return new WaitForSeconds(2f);
+        nextButtonAnimation.gameObject.SetActive(true);
+        perviousButtonAnimation.gameObject.SetActive(true);
+        nextButtonAnimation.Play();
+        perviousButtonAnimation.Play();
+
     }
 
     public void PlayerAudio(char letter)

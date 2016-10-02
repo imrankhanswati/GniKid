@@ -171,7 +171,7 @@ public class LoadAphabiticObjects : MonoBehaviour
             case "y":
                 return 24;
             case "z":
-                return 24;
+                return 25;
             default:
                 return 25;
 

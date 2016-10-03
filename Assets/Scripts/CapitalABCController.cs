@@ -9,9 +9,13 @@ public class CapitalABCController : MonoBehaviour
     [SerializeField]
     private Canvas detailCanvas;
     [SerializeField]
+    private Canvas digitDetailCanvas;
+    [SerializeField]
     private Canvas capitalAlphaSelectCanvas;
     [SerializeField]
     private Canvas SmallerAlphaSelectCanvas;
+    [SerializeField]
+    private Canvas DigitSelectCanvas;
 
     public Text alphbitTxt;
     public Image itemImg;
@@ -19,6 +23,8 @@ public class CapitalABCController : MonoBehaviour
 
     public Text nextButtText;
     public Text PreviousButtText;
+    public Text digitNextButtText;
+    public Text digitPreviousButtText;
     public GameController gameController;
     private SceneObjectType sceneObjects;
 
@@ -27,256 +33,356 @@ public class CapitalABCController : MonoBehaviour
 
     public bool isDetailesEnabled = true;
 
+    [Header("DIGITS CANVAS DATA")]
+    public Text digit;
+    public Text digitText;
+    public GameObject[] digitImageArray=new GameObject[20];
+
+
+
     public void ClickA()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('A');
+            Debug.Log("1");
+            SetDetailCanvas(1);
+        }
+        else if(GameController.isCapital==false)
+        {
+            SetDetailCanvas('a');
         }
         else
         {
-            SetDetailCanvas('a');
+            SetDetailCanvas('A');
+            
         }
 
     }
 
     public void ClickB()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('B');
+            SetDetailCanvas(2);
+        }
+        else if(GameController.isCapital==false)
+        {
+            SetDetailCanvas('b');
         }
         else
         {
-            SetDetailCanvas('b');
+
+            SetDetailCanvas('B');
         }
     }
 
     public void ClickC()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('C');
+            SetDetailCanvas(3);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('c');
         }
         else
         {
-            SetDetailCanvas('c');
+            SetDetailCanvas('C');
+            
         }
     }
 
     public void ClickD()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('D');
+            SetDetailCanvas(4);
+        }
+        else if(GameController.isCapital==false)
+        {
+            SetDetailCanvas('d');
         }
         else
         {
-            SetDetailCanvas('d');
+
+            SetDetailCanvas('D');
         }
     }
 
     public void ClickE()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('E');
+
+            SetDetailCanvas(5);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('e');
         }
         else
         {
-            SetDetailCanvas('e');
+            SetDetailCanvas('E');
         }
     }
 
     public void ClickF()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('F');
+            SetDetailCanvas(6);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('f');
         }
         else
         {
-            SetDetailCanvas('f');
+
+            SetDetailCanvas('F');
         }
     }
 
     public void ClickG()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('G');
+
+            SetDetailCanvas(7);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('g');
         }
         else
         {
-            SetDetailCanvas('g');
+            SetDetailCanvas('G');
         }
     }
 
     public void ClickH()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('H');
+            SetDetailCanvas(8);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('h');
         }
         else
         {
-            SetDetailCanvas('h');
+            SetDetailCanvas('H');
         }
     }
 
     public void ClickI()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('I');
+
+            SetDetailCanvas(9);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('i');
         }
         else
         {
-            SetDetailCanvas('i');
+            SetDetailCanvas('I');
         }
     }
 
     public void ClickJ()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('J');
+            SetDetailCanvas(10);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('j');
         }
         else
         {
-            SetDetailCanvas('j');
+            SetDetailCanvas('J');
         }
     }
 
     public void ClickK()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('K');
+            SetDetailCanvas(11);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('k');
         }
         else
         {
-            SetDetailCanvas('k');
+            SetDetailCanvas('K');
         }
     }
 
     public void ClickL()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('L');
+            SetDetailCanvas(12);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('l');
         }
         else
         {
-            SetDetailCanvas('l');
+            SetDetailCanvas('L');
         }
     }
 
     public void ClickM()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('M');
+            SetDetailCanvas(13);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('m');
         }
         else
         {
-            SetDetailCanvas('m');
+            SetDetailCanvas('M');
         }
     }
 
     public void ClickN()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('N');
+            SetDetailCanvas(14);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('n');
         }
         else
         {
-            SetDetailCanvas('n');
+            SetDetailCanvas('N');
         }
     }
 
     public void ClickO()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('O');
+            SetDetailCanvas(15);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('o');
         }
         else
         {
-            SetDetailCanvas('o');
+            SetDetailCanvas('O');
         }
     }
 
     public void ClickP()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('P');
+            SetDetailCanvas(16);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('p');
         }
         else
         {
-            SetDetailCanvas('p');
+            SetDetailCanvas('P');
         }
     }
 
     public void ClickQ()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('Q');
+            SetDetailCanvas(17);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('q');
         }
         else
         {
-            SetDetailCanvas('q');
+            SetDetailCanvas('Q');
         }
     }
 
     public void ClickR()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('R');
+            SetDetailCanvas(18);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('r');
         }
         else
         {
-            SetDetailCanvas('r');
+            SetDetailCanvas('R');
         }
     }
 
     public void ClickS()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('S');
+            SetDetailCanvas(19);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('s');
         }
         else
         {
-            SetDetailCanvas('s');
+            SetDetailCanvas('S');
         }
     }
 
     public void ClickT()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('T');
+            SetDetailCanvas(20);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('t');
         }
         else
         {
-            SetDetailCanvas('t');
+            SetDetailCanvas('T');
         }
     }
 
     public void ClickU()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
         {
-            SetDetailCanvas('U');
+            SetDetailCanvas(0);
+        }
+        else if (GameController.isCapital == false)
+        {
+            SetDetailCanvas('u');
         }
         else
         {
-            SetDetailCanvas('u');
+            SetDetailCanvas('U');
         }
     }
 
@@ -286,7 +392,7 @@ public class CapitalABCController : MonoBehaviour
         {
             SetDetailCanvas('V');
         }
-        else
+        else if (GameController.isCapital == false)
         {
             SetDetailCanvas('v');
         }
@@ -298,7 +404,7 @@ public class CapitalABCController : MonoBehaviour
         {
             SetDetailCanvas('W');
         }
-        else
+        else if (GameController.isCapital == false)
         {
             SetDetailCanvas('w');
         }
@@ -310,7 +416,7 @@ public class CapitalABCController : MonoBehaviour
         {
             SetDetailCanvas('X');
         }
-        else
+        else if (GameController.isCapital == false)
         {
             SetDetailCanvas('x');
         }
@@ -322,7 +428,7 @@ public class CapitalABCController : MonoBehaviour
         {
             SetDetailCanvas('Y');
         }
-        else
+        else if (GameController.isCapital == false)
         {
             SetDetailCanvas('y');
         }
@@ -334,7 +440,7 @@ public class CapitalABCController : MonoBehaviour
         {
             SetDetailCanvas('Z');
         }
-        else
+        else if (GameController.isCapital == false)
         {
             SetDetailCanvas('z');
         }
@@ -436,5 +542,78 @@ public class CapitalABCController : MonoBehaviour
             gameController.PlayerAudio(myAlpha);
         }
         //Debug.Log(GameController.GetIsDetailEnable());
+    }
+
+    public void SetDetailCanvas(int digit)
+    {
+        if (GameController.GetIsDetailEnable())
+        {
+            GameController.currentDigit = digit;
+            DigitSelectCanvas.gameObject.SetActive(false);
+            DigitScene tempDigitScene = new DigitScene();
+            if (digit == 0)
+            {
+                tempDigitScene = loadAlphabaticObjects.digitScenArray[0];
+                this.digit.text = digit.ToString();
+                this.digitText.text = tempDigitScene.numberText;
+                EnableAndDisableDigitScene(digit);
+                digitNextButtText.text = (digit + 1).ToString();
+                digitPreviousButtText.text = (20).ToString();
+                digitDetailCanvas.gameObject.SetActive(true);
+                gameController.PlayAudio(digit);
+                Debug.Log("found object");
+            }
+            else if (digit == 20)
+            {
+                tempDigitScene = loadAlphabaticObjects.digitScenArray[20];
+                this.digit.text = digit.ToString();
+                this.digitText.text = tempDigitScene.numberText;
+                EnableAndDisableDigitScene(digit);
+                digitNextButtText.text = (0).ToString();
+                digitPreviousButtText.text = (digit - 1).ToString();
+                digitDetailCanvas.gameObject.SetActive(true);
+                gameController.PlayAudio(digit);
+                Debug.Log("found object");
+            }
+            else
+            {
+                for (int i = 0; i < loadAlphabaticObjects.digitScenArray.Length; i++)
+                {
+                    if (digit == loadAlphabaticObjects.digitScenArray[i].number)
+                    {
+                        tempDigitScene = loadAlphabaticObjects.digitScenArray[i];
+                        this.digit.text = digit.ToString();
+                        this.digitText.text = tempDigitScene.numberText;
+                        EnableAndDisableDigitScene(digit);
+                        digitNextButtText.text = (digit + 1).ToString();
+                        digitPreviousButtText.text = (digit - 1).ToString();
+                        digitDetailCanvas.gameObject.SetActive(true);
+                        gameController.PlayAudio(digit);
+                    }
+                }
+            }
+        }
+        else
+        {
+            gameController.PlayAudio(digit);
+        }
+    }
+
+    void EnableAndDisableDigitScene(int digit)
+    {
+        for (int i = 0; i < loadAlphabaticObjects.digitScenArray.Length; i++)
+        {
+            if (digit == loadAlphabaticObjects.digitScenArray[i].number)
+            {
+                loadAlphabaticObjects.digitScenArray[digit].ObjectsCanvas.SetActive(true);
+                continue;
+            }
+            else
+            {
+                loadAlphabaticObjects.digitScenArray[i].ObjectsCanvas.SetActive(false);
+            }
+
+        }
+
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class LoadAphabiticObjects : MonoBehaviour
 {
     public SceneObjectType[] alphabitsObjectArray = new SceneObjectType[26];
+    public DigitScene[] digitScenArray = new DigitScene[2];
+    public ObjectColor[] objectsColor = new ObjectColor[10];
 
 
     public string LoadNextAlphabit(string currentAlpha)
@@ -188,4 +190,22 @@ public class SceneObjectType
     public string alphabetText;
     public Sprite itemImge;
     public string itemText;
+    public Color textColor;
+}
+
+[System.Serializable]
+public class DigitScene
+{
+    public int number;
+    public string numberText;
+    public GameObject ObjectsCanvas;
+    public ObjectColor textColor;
+}
+
+[System.Serializable]
+public class ObjectColor
+{
+    public int objectId;
+    public Sprite objectSprite;
+    public Color objectColor;
 }

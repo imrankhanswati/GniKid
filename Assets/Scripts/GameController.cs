@@ -6,10 +6,13 @@ public class GameController : MonoBehaviour {
     private AudioClip[] LetterAudioList;
     [SerializeField]
     private AudioClip[] DetailAudioList;
+    [SerializeField]
+    private AudioClip[] DigitsAudio;
     private static AudioSource audioSource;
     private static bool isDetailEnabled=true;
     public static bool isCapital;
-
+    public static bool isDigits;
+    public static int currentDigit = 0;
     public Animation alphaAnimation;
     public Animation itemImageAnimation;
     public Animation itemTextAnimation;
@@ -24,7 +27,7 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Debug.Log(isCapital);
+
 	}
 
     public static void SetIsDetailEnable(bool value)
@@ -103,7 +106,7 @@ public class GameController : MonoBehaviour {
             if (isDetailEnabled)
             {
                 audioSource.clip = DetailAudioList[1];
-                audioSource.Play(); 
+                audioSource.Play();
                 this.RestartAnimaters();
             }
             else
@@ -165,7 +168,7 @@ public class GameController : MonoBehaviour {
             else
             {
                 audioSource.clip = LetterAudioList[5];
-                audioSource.Play(); 
+                audioSource.Play();
             }
 
         }
@@ -179,7 +182,7 @@ public class GameController : MonoBehaviour {
             else
             {
                 audioSource.clip = LetterAudioList[6];
-                audioSource.Play(); 
+                audioSource.Play();
             }
 
         }
@@ -445,5 +448,11 @@ public class GameController : MonoBehaviour {
             }
         }
 
+    }
+
+    public void PlayAudio(int digit)
+    {
+        audioSource.clip = DigitsAudio[digit];
+        audioSource.Play();
     }
 }

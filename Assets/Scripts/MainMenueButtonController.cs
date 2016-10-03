@@ -14,6 +14,7 @@ public class MainMenueButtonController : MonoBehaviour {
     {
         capitalLetterCanvas.SetActive(true);
         GameController.isCapital = true;
+        GameController.isDigits = false;
         thisCanvas.SetActive(false);
     }
 
@@ -21,13 +22,16 @@ public class MainMenueButtonController : MonoBehaviour {
     {
         smallelLetterCanvas.SetActive(true);
         GameController.isCapital = false;
+        GameController.isDigits = false;
         thisCanvas.SetActive(false);
     }
 
     public void DigitsButton()
     {
-        //digitsCanvas.SetActive(true);
-        //thisCanvas.SetActive(false);
+        digitsCanvas.SetActive(true);
+        thisCanvas.SetActive(false);
+        GameController.isCapital = false;
+        GameController.isDigits = true;
     }
 
     public void QuizButton()

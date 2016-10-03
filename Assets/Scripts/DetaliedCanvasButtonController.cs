@@ -13,9 +13,15 @@ public class DetaliedCanvasButtonController : MonoBehaviour
     [SerializeField]
     private Canvas DetailedObjectsCanvas;
     [SerializeField]
+    private Canvas digitDetailedObjectsCanvas;
+    [SerializeField]
     private Canvas capitalAlphaSelectCanvas;
     [SerializeField]
     private Canvas smallAlphaSelectCanvas;
+    [SerializeField]
+    private Canvas digitSelectCanvas;
+    [SerializeField]
+    private CapitalABCController capitalABCController;
 
     public GameController gameController;
 
@@ -39,8 +45,6 @@ public class DetaliedCanvasButtonController : MonoBehaviour
 
     public void Next()
     {
-        //nextButton.SetActive(false);
-        //perivousButton.SetActive(false);
         this.NextScene();
     }
 
@@ -51,7 +55,13 @@ public class DetaliedCanvasButtonController : MonoBehaviour
 
     public void Back()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits)
+        {
+            digitSelectCanvas.gameObject.SetActive(true);
+            digitDetailedObjectsCanvas.gameObject.SetActive(false);
+            //gameController.DisableAudios();
+        }
+        else if (GameController.isCapital)
         {
             capitalAlphaSelectCanvas.gameObject.SetActive(true);
             DetailedObjectsCanvas.gameObject.SetActive(false);
@@ -67,56 +77,85 @@ public class DetaliedCanvasButtonController : MonoBehaviour
 
     void NextScene()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits==false)
         {
-            nextAlpha = loadAlphabaticObjects.LoadNextAlphabit(nextButtonText.text);
-            PreviousAlpha = loadAlphabaticObjects.LoadNextAlphabit(previousButtonText.text);
-            nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(nextButtonText.text);
-            gameController.PlayerAudio((char)(nextButtonText.text[0]));
-            nextButtonText.text = nextAlpha;
-            previousButtonText.text = PreviousAlpha;
-            alphbitTxt.text = nextScene.alphabetText;
-            itemImg.sprite = nextScene.itemImge;
-            itemTextTxt.text = nextScene.itemText;
+            if (GameController.isCapital)
+            {
+                nextAlpha = loadAlphabaticObjects.LoadNextAlphabit(nextButtonText.text);
+                PreviousAlpha = loadAlphabaticObjects.LoadNextAlphabit(previousButtonText.text);
+                nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(nextButtonText.text);
+                gameController.PlayerAudio((char)(nextButtonText.text[0]));
+                nextButtonText.text = nextAlpha;
+                previousButtonText.text = PreviousAlpha;
+                alphbitTxt.text = nextScene.alphabetText;
+                itemImg.sprite = nextScene.itemImge;
+                itemTextTxt.text = nextScene.itemText;
+            }
+            else
+            {
+                nextAlpha = loadAlphabaticObjects.LoadNextAlphabit(nextButtonText.text);
+                PreviousAlpha = loadAlphabaticObjects.LoadNextAlphabit(previousButtonText.text);
+                nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(nextButtonText.text);
+                gameController.PlayerAudio((char)(nextButtonText.text[0]));
+                nextButtonText.text = nextAlpha;
+                previousButtonText.text = PreviousAlpha;
+                alphbitTxt.text = nextScene.SmallAlphabetText;
+                itemImg.sprite = nextScene.itemImge;
+                itemTextTxt.text = nextScene.SmallItemText;
+            }
         }
         else
         {
-            nextAlpha = loadAlphabaticObjects.LoadNextAlphabit(nextButtonText.text);
-            PreviousAlpha = loadAlphabaticObjects.LoadNextAlphabit(previousButtonText.text);
-            nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(nextButtonText.text);
-            gameController.PlayerAudio((char)(nextButtonText.text[0]));
-            nextButtonText.text = nextAlpha;
-            previousButtonText.text = PreviousAlpha;
-            alphbitTxt.text = nextScene.SmallAlphabetText;
-            itemImg.sprite = nextScene.itemImge;
-            itemTextTxt.text = nextScene.SmallItemText;
+            if (GameController.currentDigit == 20)
+            {
+                capitalABCController.SetDetailCanvas(0);
+            }
+            else
+            {
+                capitalABCController.SetDetailCanvas(GameController.currentDigit + 1);
+            }
         }
     }
     void PerviousScene()
     {
-        if (GameController.isCapital)
+        if (GameController.isDigits == false)
         {
-            nextAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(nextButtonText.text);
-            PreviousAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(previousButtonText.text);
-            nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(previousButtonText.text);
-            gameController.PlayerAudio((char)(previousButtonText.text[0]));
-            nextButtonText.text = nextAlpha;
-            previousButtonText.text = PreviousAlpha;
-            alphbitTxt.text = nextScene.alphabetText;
-            itemImg.sprite = nextScene.itemImge;
-            itemTextTxt.text = nextScene.itemText;
+            if (GameController.isCapital)
+            {
+                nextAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(nextButtonText.text);
+                PreviousAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(previousButtonText.text);
+                nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(previousButtonText.text);
+                gameController.PlayerAudio((char)(previousButtonText.text[0]));
+                nextButtonText.text = nextAlpha;
+                previousButtonText.text = PreviousAlpha;
+                alphbitTxt.text = nextScene.alphabetText;
+                itemImg.sprite = nextScene.itemImge;
+                itemTextTxt.text = nextScene.itemText;
+            }
+            else
+            {
+                nextAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(nextButtonText.text);
+                PreviousAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(previousButtonText.text);
+                nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(previousButtonText.text);
+                gameController.PlayerAudio((char)(previousButtonText.text[0]));
+                nextButtonText.text = nextAlpha;
+                previousButtonText.text = PreviousAlpha;
+                alphbitTxt.text = nextScene.SmallAlphabetText;
+                itemImg.sprite = nextScene.itemImge;
+                itemTextTxt.text = nextScene.SmallItemText;
+            }
         }
         else
         {
-            nextAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(nextButtonText.text);
-            PreviousAlpha = loadAlphabaticObjects.LoadPreivousAlphabit(previousButtonText.text);
-            nextScene = loadAlphabaticObjects.LoadCurrentCanvasObject(previousButtonText.text);
-            gameController.PlayerAudio((char)(previousButtonText.text[0]));
-            nextButtonText.text = nextAlpha;
-            previousButtonText.text = PreviousAlpha;
-            alphbitTxt.text = nextScene.SmallAlphabetText;
-            itemImg.sprite = nextScene.itemImge;
-            itemTextTxt.text = nextScene.SmallItemText;
+            if (GameController.currentDigit == 0) 
+            {
+                capitalABCController.SetDetailCanvas(20); 
+            }
+            else
+            {
+                capitalABCController.SetDetailCanvas(GameController.currentDigit - 1);
+            }
+            Debug.Log(GameController.currentDigit);
         }
     }
 }

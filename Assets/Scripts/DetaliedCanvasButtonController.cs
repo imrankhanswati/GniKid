@@ -39,8 +39,8 @@ public class DetaliedCanvasButtonController : MonoBehaviour
 
     public void Next()
     {
-        nextButton.SetActive(false);
-        perivousButton.SetActive(false);
+        //nextButton.SetActive(false);
+        //perivousButton.SetActive(false);
         this.NextScene();
     }
 
@@ -55,11 +55,13 @@ public class DetaliedCanvasButtonController : MonoBehaviour
         {
             capitalAlphaSelectCanvas.gameObject.SetActive(true);
             DetailedObjectsCanvas.gameObject.SetActive(false);
+            gameController.DisableAudios();
         }
         else
         {
             smallAlphaSelectCanvas.gameObject.SetActive(true);
             DetailedObjectsCanvas.gameObject.SetActive(false);
+            gameController.DisableAudios();
         }
     }
 
@@ -76,7 +78,6 @@ public class DetaliedCanvasButtonController : MonoBehaviour
             alphbitTxt.text = nextScene.alphabetText;
             itemImg.sprite = nextScene.itemImge;
             itemTextTxt.text = nextScene.itemText;
-            Debug.Log("next: " + nextAlpha + "  pre: " + PreviousAlpha);
         }
         else
         {
@@ -89,7 +90,6 @@ public class DetaliedCanvasButtonController : MonoBehaviour
             alphbitTxt.text = nextScene.SmallAlphabetText;
             itemImg.sprite = nextScene.itemImge;
             itemTextTxt.text = nextScene.SmallItemText;
-            Debug.Log("next: " + nextAlpha + "  pre: " + PreviousAlpha);
         }
     }
     void PerviousScene()
@@ -105,8 +105,6 @@ public class DetaliedCanvasButtonController : MonoBehaviour
             alphbitTxt.text = nextScene.alphabetText;
             itemImg.sprite = nextScene.itemImge;
             itemTextTxt.text = nextScene.itemText;
-
-            Debug.Log("next: " + nextAlpha + "  pre: " + PreviousAlpha);
         }
         else
         {
@@ -119,8 +117,6 @@ public class DetaliedCanvasButtonController : MonoBehaviour
             alphbitTxt.text = nextScene.SmallAlphabetText;
             itemImg.sprite = nextScene.itemImge;
             itemTextTxt.text = nextScene.SmallItemText;
-
-            Debug.Log("next: " + nextAlpha + "  pre: " + PreviousAlpha);
         }
     }
 }

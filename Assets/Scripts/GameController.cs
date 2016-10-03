@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(isCapital);
+        //Debug.Log(isCapital);
 	}
 
     public static void SetIsDetailEnable(bool value)
@@ -43,20 +43,20 @@ public class GameController : MonoBehaviour {
         //alphaAnimator.SetTrigger("PlayAlphaAnim");
         //itemImageAnimator.SetTrigger("PlayItmeAnim");
         //itemTextAnimator.SetTrigger("PlayItemNameAnim");
-        if (alphaAnimation.isPlaying)
+        //Debug.Log(alphaAnimation.isPlaying);
+        if (!alphaAnimation.isPlaying)
         {
             alphaAnimation.Play();
         }
-        if (itemTextAnimation.isPlaying)
+        if (!itemTextAnimation.isPlaying)
         {
             itemTextAnimation.Play();
         }
-        if (itemImageAnimation.isPlaying)
+        if (!itemImageAnimation.isPlaying)
         {
             itemImageAnimation.Play();
         }
-        Debug.Log("kjkalsjfkajdsf");
-        StartCoroutine(this.EnableButtons());
+        //StartCoroutine(this.EnableButtons());
 
     }
 
@@ -68,6 +68,18 @@ public class GameController : MonoBehaviour {
         nextButtonAnimation.Play();
         perviousButtonAnimation.Play();
 
+    }
+
+    public void DisableAudios()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void PlayerAudio(char letter)

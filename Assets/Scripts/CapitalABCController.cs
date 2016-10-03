@@ -340,14 +340,19 @@ public class CapitalABCController : MonoBehaviour
         }
     }
 
+    public void CheckBoxValueChange(bool isChecked)
+    {
+        GameController.SetIsDetailEnable(isChecked);
+    }
+
     void SetDetailCanvas(char myAlpha)
     {
         if (GameController.GetIsDetailEnable())
         {
             if (GameController.isCapital)
             {
-                nextButton.SetActive(false);
-                perivousButton.SetActive(false);
+                //nextButton.SetActive(false);
+                //perivousButton.SetActive(false);
 
                 if (myAlpha == 'A')
                 {
@@ -386,8 +391,8 @@ public class CapitalABCController : MonoBehaviour
             }
             else
             {
-                nextButton.SetActive(false);
-                perivousButton.SetActive(false);
+                //nextButton.SetActive(false);
+                //perivousButton.SetActive(false);
 
                 if (myAlpha == 'a')
                 {
@@ -430,5 +435,6 @@ public class CapitalABCController : MonoBehaviour
         {
             gameController.PlayerAudio(myAlpha);
         }
+        //Debug.Log(GameController.GetIsDetailEnable());
     }
 }

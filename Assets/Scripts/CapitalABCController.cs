@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CapitalABCController : MonoBehaviour
 {
+    [Header("ALPHABITS CANVAS DATA")]
     [SerializeField]
     private LoadAphabiticObjects loadAlphabaticObjects;
     [SerializeField]
@@ -457,9 +458,6 @@ public class CapitalABCController : MonoBehaviour
         {
             if (GameController.isCapital)
             {
-                //nextButton.SetActive(false);
-                //perivousButton.SetActive(false);
-
                 if (myAlpha == 'A')
                 {
                     sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
@@ -497,9 +495,6 @@ public class CapitalABCController : MonoBehaviour
             }
             else
             {
-                //nextButton.SetActive(false);
-                //perivousButton.SetActive(false);
-
                 if (myAlpha == 'a')
                 {
                     sceneObjects = loadAlphabaticObjects.LoadCurrentCanvasObject(myAlpha.ToString());
@@ -541,7 +536,6 @@ public class CapitalABCController : MonoBehaviour
         {
             gameController.PlayerAudio(myAlpha);
         }
-        //Debug.Log(GameController.GetIsDetailEnable());
     }
 
     public void SetDetailCanvas(int digit)
@@ -561,7 +555,6 @@ public class CapitalABCController : MonoBehaviour
                 digitPreviousButtText.text = (20).ToString();
                 digitDetailCanvas.gameObject.SetActive(true);
                 gameController.PlayAudio(digit);
-                Debug.Log("found object");
             }
             else if (digit == 20)
             {
@@ -573,7 +566,6 @@ public class CapitalABCController : MonoBehaviour
                 digitPreviousButtText.text = (digit - 1).ToString();
                 digitDetailCanvas.gameObject.SetActive(true);
                 gameController.PlayAudio(digit);
-                Debug.Log("found object");
             }
             else
             {

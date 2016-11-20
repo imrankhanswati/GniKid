@@ -6,7 +6,10 @@ public class TimeController : MonoBehaviour
 {
     public int totalTime;
     public int spendedTime;
+    public EnglishQuestion englishQuestion; 
     private bool isTimeUp=false;
+
+
     void Start()
     {
         StartCoroutine(TimeDecrement());
@@ -36,12 +39,17 @@ public class TimeController : MonoBehaviour
                 Debug.Log(totalTime + "" + spendedTime + "time up");
             }
         }
+        if (isTimeUp)
+        {
+            englishQuestion.GenrateEnglishQuestion();
+        }
     }
 
     public void RestartTimer()
     {
         isTimeUp = false;
         spendedTime = 0;
+        this.GetComponent<Text>().text = "0:"+totalTime.ToString();
     }
 
     public bool IsTimeUp()

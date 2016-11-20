@@ -20,12 +20,16 @@ public class GameController : MonoBehaviour {
     public Animation nextButtonAnimation;
     public Animation perviousButtonAnimation;
 
+    //back button controlles
+    public GameObject digitsCanvas;
+    public GameObject smallLetterCanvas;
+    public GameObject capitalLetterCanvas;
+    public GameObject mainManuCanvas;
 	// Use this for initialization
 	void Start () {
         audioSource = this.GetComponent<AudioSource>();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 
 	}
@@ -34,6 +38,7 @@ public class GameController : MonoBehaviour {
     {
         isDetailEnabled = value;
     }
+
     public static bool GetIsDetailEnable()
     {
         return isDetailEnabled;
@@ -454,5 +459,13 @@ public class GameController : MonoBehaviour {
     {
         audioSource.clip = DigitsAudio[digit];
         audioSource.Play();
+    }
+
+    public void BackToMainMenu()
+    {
+        capitalLetterCanvas.SetActive(false);
+        smallLetterCanvas.SetActive(false);
+        digitsCanvas.SetActive(false);
+        mainManuCanvas.SetActive(true);
     }
 }

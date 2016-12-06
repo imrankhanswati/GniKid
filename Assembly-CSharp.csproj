@@ -54,6 +54,8 @@
      <Compile Include="Assets\Scripts\LoadAphabiticObjects.cs" />
      <Compile Include="Assets\Scripts\MainMenueButtonController.cs" />
      <Compile Include="Assets\Scripts\MainMenueScenButtonController.cs" />
+     <Compile Include="Assets\Scripts\QuizButtonController.cs" />
+     <Compile Include="Assets\Scripts\QuizController.cs" />
      <Compile Include="Assets\Scripts\TimeController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

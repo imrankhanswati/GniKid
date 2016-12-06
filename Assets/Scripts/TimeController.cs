@@ -6,8 +6,9 @@ public class TimeController : MonoBehaviour
 {
     public int totalTime;
     public int spendedTime;
-    public EnglishQuestion englishQuestion; 
+    public EnglishQuestionGentator englishQuestionGenrator; 
     private bool isTimeUp=false;
+    public bool isFinalResultShown = false;
 
 
     void Start()
@@ -17,43 +18,53 @@ public class TimeController : MonoBehaviour
 
     IEnumerator TimeDecrement()
     {
-        
-        while (isTimeUp == false)
+        if (!isFinalResultShown)
         {
-            yield return new WaitForSeconds(1f);
-            spendedTime += 1;
-            int remtime = totalTime - spendedTime;
-            if (remtime <= 9)
+            while (isTimeUp == false)
             {
-                this.GetComponent<Text>().text = "0:0" + remtime.ToString();
+                yield return new WaitForSeconds(1f);
+                spendedTime += 1;
+                int remtime = totalTime - spendedTime;
+                if (remtime <= 5)
+                {
+                    this.GetComponent<Text>().text = "0:0" + remtime.ToString();
                     this.GetComponent<Text>().color = Color.red;
-            }
-            else
-            {
-                this.GetComponent<Text>().text = "0:" + remtime.ToString();
-            }
+                }
+                else
+                {
+                    this.GetComponent<Text>().text = "0:" + remtime.ToString();
+                }
 
-            if (totalTime == spendedTime)
-            {
-                isTimeUp = true;
-                Debug.Log(totalTime + "" + spendedTime + "time up");
+                if (totalTime == spendedTime)
+                {
+                    isTimeUp = true;
+
+                }
+
             }
-        }
-        if (isTimeUp)
-        {
-            englishQuestion.GenrateEnglishQuestion();
+            if (isTimeUp)
+            {
+                englishQuestionGenrator.GenrateEnglishQuestion();
+                englishQuestionGenrator.DataUpdater(0);
+                this.StartCoroutine(TimeDecrement());
+            }
         }
     }
 
     public void RestartTimer()
     {
+        this.GetComponent<Text>().text = "0:" + totalTime.ToString();
         isTimeUp = false;
         spendedTime = 0;
-        this.GetComponent<Text>().text = "0:"+totalTime.ToString();
     }
 
     public bool IsTimeUp()
     {
         return isTimeUp;
+    }
+
+    public void StopTimeDecrement()
+    {
+        this.StopCoroutine(TimeDecrement());
     }
 }

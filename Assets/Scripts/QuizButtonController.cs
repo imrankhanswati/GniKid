@@ -6,7 +6,17 @@ public class QuizButtonController : MonoBehaviour
     GameObject quizCanvas;
     GameObject quizMenuCanvas;
 
-    public void PlayEnglishQuiz()
+    public void PlayEnglishCapitalQuiz()
+    {
+
+    }
+
+    public void PlayEnglishSmallQuiz()
+    {
+
+    }
+
+    public void PlayEnglishMixQuiz()
     {
 
     }
@@ -15,7 +25,7 @@ public class QuizButtonController : MonoBehaviour
     {
 
     }
-    public void PlayMixQuiz()
+    public void PlayEnglishMathQuiz()
     {
 
     }

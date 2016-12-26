@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\CapitalABCController.cs" />
      <Compile Include="Assets\Scripts\DetaliedCanvasButtonController.cs" />
      <Compile Include="Assets\Scripts\EnglishQuestionGentator.cs" />
+     <Compile Include="Assets\Scripts\FinalResultButtonController.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\LoadAphabiticObjects.cs" />
      <Compile Include="Assets\Scripts\MainMenueButtonController.cs" />

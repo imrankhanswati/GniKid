@@ -9,6 +9,7 @@ public class TimeController : MonoBehaviour
     public EnglishQuestionGentator englishQuestionGenrator; 
     private bool isTimeUp=false;
     public bool isFinalResultShown = false;
+    private bool isCoroutineInterpted = false;
 
 
     void Start()
@@ -40,20 +41,22 @@ public class TimeController : MonoBehaviour
                     isTimeUp = true;
 
                 }
+            }
 
-            }
-            if (isTimeUp)
-            {
-                englishQuestionGenrator.GenrateEnglishQuestion();
-                englishQuestionGenrator.DataUpdater(0);
-                this.StartCoroutine(TimeDecrement());
-            }
+        }
+        if (isTimeUp)
+        {
+            englishQuestionGenrator.GenrateEnglishQuestion();
+            englishQuestionGenrator.DataUpdater(0);
+            this.StartCoroutine(TimeDecrement());
         }
     }
+    
 
     public void RestartTimer()
     {
         this.GetComponent<Text>().text = "0:" + totalTime.ToString();
+        isCoroutineInterpted = false;
         isTimeUp = false;
         spendedTime = 0;
     }
@@ -66,5 +69,7 @@ public class TimeController : MonoBehaviour
     public void StopTimeDecrement()
     {
         this.StopCoroutine(TimeDecrement());
+        //isTimeUp = true;
+        //isCoroutineInterpted = true;
     }
 }

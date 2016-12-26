@@ -11,6 +11,12 @@ public enum ButtonsTypes
 };
 public class EnglishQuestionGentator : MonoBehaviour
 {
+    public bool isEnglishCapitalQuestion;
+    public bool isEnglishSmallQuestion;
+    public bool isEnglishMixQuestion;
+    public bool isMathsQuestion;
+
+
     //Data
     public int correctAnswars;
     public int wrongAnswars;
@@ -49,13 +55,19 @@ public class EnglishQuestionGentator : MonoBehaviour
     public MathsQuestion mathsQuestion;
     public float nextQuestionGenrationTime;
 
+    private IList<char> genratedAnswars = new List<char>();
+    [SerializeField]
+    private Text[] btnTextArray;
     void Start()
     {
         previousSelectedQuestion = new List<EnglishQuestion>();
         englishQuestion = new EnglishQuestion();
         mathsQuestion = new MathsQuestion();
-        this.RestData();
-        this.GenrateEnglishQuestion();
+        this.ResetData();
+        //this.GenrateEnglishQuestion();
+        //btnTextArray = new Text[4];
+        //genratedAnswars = new List<char>();
+
     }
 
     void Update(){
@@ -66,7 +78,19 @@ public class EnglishQuestionGentator : MonoBehaviour
     {
         //Question Genration
         this.EnableButtons();
-        englishQuestion.isCapital = Random.Range(0, 2);
+        if (isEnglishCapitalQuestion)
+        {
+            englishQuestion.isCapital = 1;
+        }
+        else if (isEnglishSmallQuestion)
+        {
+            englishQuestion.isCapital = 0;
+        }
+        else if (isEnglishMixQuestion)
+        {
+            englishQuestion.isCapital = Random.Range(0, 2);
+        }
+        //englishQuestion.isCapital = Random.Range(0, 2);
         int selectedWord;
         if (englishQuestion.isCapital == 1)
         {
@@ -160,10 +184,19 @@ public class EnglishQuestionGentator : MonoBehaviour
     public void StringFormation()
     {
         questionText.text = englishQuestion.previousWord + " ___ " + englishQuestion.nextWord;
-        answar1Text.text = englishQuestion.ans1.ToString();
-        answar2Text.text = englishQuestion.wordInBlank.ToString();
-        answar3Text.text = englishQuestion.ans2.ToString();
-        answar4Text.text = englishQuestion.ans3.ToString();
+        //answar1Text.text = englishQuestion.ans1.ToString();
+        //answar2Text.text = englishQuestion.wordInBlank.ToString();
+        //answar3Text.text = englishQuestion.ans2.ToString();
+        //answar4Text.text = englishQuestion.ans3.ToString();
+        if (genratedAnswars != null)
+        {
+            genratedAnswars.Add(englishQuestion.ans1);
+            genratedAnswars.Add(englishQuestion.ans2);
+            genratedAnswars.Add(englishQuestion.ans3);
+            genratedAnswars.Add(englishQuestion.wordInBlank);
+            this.AnswarAssigner(genratedAnswars, btnTextArray);
+        }
+        
 
     }
 
@@ -171,6 +204,22 @@ public class EnglishQuestionGentator : MonoBehaviour
     public void NextQuestion()
     {
         this.GenrateEnglishQuestion();
+    }
+
+    public void AnswarAssigner(IList<char> answars,Text[] AnsBtnText)
+    {
+        int selectedAnswar = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (answars.Count != 0)
+            {
+
+            }
+            selectedAnswar = Random.Range(0, answars.Count);
+            AnsBtnText[i].text = answars[selectedAnswar].ToString();
+            Debug.Log(answars[selectedAnswar]);
+            answars.RemoveAt(selectedAnswar);
+        }
     }
 
     public void CheckAnswarButton1()
@@ -298,15 +347,30 @@ public class EnglishQuestionGentator : MonoBehaviour
         {
             timeController.isFinalResultShown = true;
             quizController.ShowFinalResults(correctAnswars, wrongAnswars, totalAnswars);
+            timeController.StopTimeDecrement();
         }
     }
 
-    public void RestData()
+    public void ResetData()
     {
         totalAnswars = 0;
         correctAnswars = 0;
         wrongAnswars = 0;
         progress = 0;
+
+        totalAnswaresText.text = "Total Answars: " + totalAnswars;
+        correctAnswarsText.text = "Correct Answars: " + correctAnswars;
+        wrongAnswarsText.text = "Wrong Answars: " + wrongAnswars;
+        progressText.text = "Progress: " + progress + "/" + totalQustions;
+    }
+
+    public void RestartQuiz()
+    {
+        totalAnswars = 0;
+        correctAnswars = 0;
+        wrongAnswars = 0;
+        progress = 0;
+        timeController.RestartTimer();
 
         totalAnswaresText.text = "Total Answars: " + totalAnswars;
         correctAnswarsText.text = "Correct Answars: " + correctAnswars;

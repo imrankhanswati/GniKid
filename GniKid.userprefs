@@ -1,0 +1,18 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\QuizController.cs">
+    <Files>
+      <File FileName="Assets\Scripts\QuizController.cs" Line="34" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\LENOVO\Documents\GitHub\GniKid\Assets\Scripts\QuizController.cs" line="35" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets\Scripts\QuizController.cs" line="28" offsetX="263" offsetY="435" expression="a" liveUpdate="False" />
+    <Watch file="Assets\Scripts\QuizController.cs" line="28" offsetX="263" offsetY="482" expression="CA" liveUpdate="False" />
+    <Watch file="Assets\Scripts\QuizController.cs" line="28" offsetX="263" offsetY="458" expression="TA" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+</Properties>

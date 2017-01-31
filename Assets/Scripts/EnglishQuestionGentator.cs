@@ -15,6 +15,7 @@ public class EnglishQuestionGentator : MonoBehaviour
     public bool isEnglishSmallQuestion;
     public bool isEnglishMixQuestion;
     public bool isMathsQuestion;
+    public bool isEnglishAndMathMixQuestion;
 
 
     //Data
@@ -47,7 +48,7 @@ public class EnglishQuestionGentator : MonoBehaviour
 
     public static int questionTypes;//if its value is 1 then the question genrater genrate english question,if 2 ther genrater genrate maths else genrater genrate mix question;
     public ButtonsTypes buttonsType;
-    public TimeController timeController;
+    public TimeUpdate timeController;
 
     List<EnglishQuestion> previousSelectedQuestion;
     public int questionCount;
@@ -55,7 +56,7 @@ public class EnglishQuestionGentator : MonoBehaviour
     public MathsQuestion mathsQuestion;
     public float nextQuestionGenrationTime;
 
-    private IList<char> genratedAnswars = new List<char>();
+    private IList<string> genratedAnswars = new List<string>();
     [SerializeField]
     private Text[] btnTextArray;
     void Start()
@@ -76,6 +77,7 @@ public class EnglishQuestionGentator : MonoBehaviour
 
     public void GenrateEnglishQuestion()
     {
+        //Debug.Log("genrate english question...");
         //Question Genration
         this.EnableButtons();
         if (isEnglishCapitalQuestion)
@@ -94,6 +96,7 @@ public class EnglishQuestionGentator : MonoBehaviour
         int selectedWord;
         if (englishQuestion.isCapital == 1)
         {
+            //Debug.Log("called capital");
             selectedWord = Random.Range(66, 89);
             englishQuestion.wordInBlank = (char)selectedWord;
             englishQuestion.nextWord = (char)(++selectedWord);
@@ -101,6 +104,7 @@ public class EnglishQuestionGentator : MonoBehaviour
         }
         else
         {
+            //Debug.Log("called small");
             selectedWord = Random.Range(98, 122);
             englishQuestion.wordInBlank = (char)selectedWord;
             englishQuestion.nextWord = (char)(++selectedWord);
@@ -114,18 +118,19 @@ public class EnglishQuestionGentator : MonoBehaviour
         AnsButton2.image.color = Color.white;
         AnsButton3.image.color = Color.white;
         AnsButton4.image.color = Color.white;
+        //Debug.Log("English q genrated....");
         //Debug.Log(wordInBlack + "   next   " + nextWord + "   previous   " + firstWord);
     }
 
     public void GenrateMathsQuestion()
     {
         int selectedWord;
-        selectedWord = Random.Range(0, 21);
+        this.EnableButtons();
+        selectedWord = Random.Range(1, 21);
+        //Debug.Log(selectedWord + "     " + (selectedWord+=1) + "     " + (selectedWord -= 2));
         mathsQuestion.digitInBlank = selectedWord;
-        mathsQuestion.nextDigit = selectedWord++;
-        mathsQuestion.previousDigit = selectedWord -= 2;
-
-        Debug.Log(selectedWord);
+        mathsQuestion.nextDigit = (selectedWord += 1);
+        mathsQuestion.previousDigit = (selectedWord-=2);
 
         this.AnswarsGenration();
         this.StringFormation();
@@ -134,29 +139,82 @@ public class EnglishQuestionGentator : MonoBehaviour
         AnsButton2.image.color = Color.white;
         AnsButton3.image.color = Color.white;
         AnsButton4.image.color = Color.white;
+        //Debug.Log("math q genrated....");
     }
 
-    public void AnswarsGenration()
+    public void GenrateQuestion()
     {
-        int[] selectedAnswars = new int[4];
-        selectedAnswars[0] = englishQuestion.wordInBlank;
-        if (englishQuestion.isCapital == 1)
+        //Debug.Log("genrating new qestion...");
+        if (isEnglishAndMathMixQuestion)
         {
-            for (int i = 1; i < selectedAnswars.Length; i++)
+            //Debug.Log("english and math mix...");
+            int isEnglish = Random.Range(0, 2);
+            //Debug.Log(isEnglish);
+            if (isEnglish == 1)
             {
-                selectedAnswars[i] = this.GenrateOneAnswar(65, 90, selectedAnswars);
+                isEnglishMixQuestion = true;
+                isMathsQuestion = false;
+                GenrateEnglishQuestion();
+                //Debug.Log("English");
             }
+            else
+            {
+                isMathsQuestion = true;
+                isEnglishMixQuestion = false;
+                GenrateMathsQuestion();
+                //Debug.Log("math");
+            }
+            return;
+        }
+        else if(isMathsQuestion)
+        {
+            Debug.Log("math question...");
+            GenrateMathsQuestion();
+            return;
         }
         else
         {
-            for (int i = 0; i < selectedAnswars.Length; i++)
-            {
-                selectedAnswars[i] = this.GenrateOneAnswar(97, 123, selectedAnswars);
-            }
+            //Debug.Log("english question...");
+            GenrateEnglishQuestion();
+            return;
         }
-        englishQuestion.ans1 = (char)selectedAnswars[1];
-        englishQuestion.ans2 = (char)selectedAnswars[2];
-        englishQuestion.ans3 = (char)selectedAnswars[3];
+    } 
+    public void AnswarsGenration()
+    {
+        int[] selectedAnswars = new int[4];
+        if (isMathsQuestion)
+        {
+            selectedAnswars[0] = mathsQuestion.digitInBlank;
+            for (int i = 1; i < selectedAnswars.Length; i++)
+            {
+                selectedAnswars[i] = this.GenrateOneAnswar(0, 21, selectedAnswars);
+            }
+
+            mathsQuestion.ans1 = selectedAnswars[1].ToString();
+            mathsQuestion.ans2 = selectedAnswars[2].ToString();
+            mathsQuestion.ans3 = selectedAnswars[3].ToString();
+        }
+        else
+        {
+            selectedAnswars[0] = englishQuestion.wordInBlank;
+            if (englishQuestion.isCapital == 1)
+            {
+                for (int i = 1; i < selectedAnswars.Length; i++)
+                {
+                    selectedAnswars[i] = this.GenrateOneAnswar(65, 90, selectedAnswars);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < selectedAnswars.Length; i++)
+                {
+                    selectedAnswars[i] = this.GenrateOneAnswar(97, 123, selectedAnswars);
+                }
+            }
+            englishQuestion.ans1 = (char)selectedAnswars[1];
+            englishQuestion.ans2 = (char)selectedAnswars[2];
+            englishQuestion.ans3 = (char)selectedAnswars[3];
+        }
 
     }
 
@@ -183,30 +241,44 @@ public class EnglishQuestionGentator : MonoBehaviour
 
     public void StringFormation()
     {
-        questionText.text = englishQuestion.previousWord + " ___ " + englishQuestion.nextWord;
+        if (isMathsQuestion)
+        {
+            questionText.text = mathsQuestion.previousDigit + " ___ " + mathsQuestion.nextDigit;
+            if (genratedAnswars != null)
+            {
+                genratedAnswars.Add(mathsQuestion.ans1);
+                genratedAnswars.Add(mathsQuestion.ans2);
+                genratedAnswars.Add(mathsQuestion.ans3);
+                genratedAnswars.Add(mathsQuestion.digitInBlank.ToString());
+                this.AnswarAssigner(genratedAnswars, btnTextArray);
+            }
+        }
+        else
+        {
+            questionText.text = englishQuestion.previousWord + " ___ " + englishQuestion.nextWord;
+
+            if (genratedAnswars != null)
+            {
+                genratedAnswars.Add(englishQuestion.ans1.ToString());
+                genratedAnswars.Add(englishQuestion.ans2.ToString());
+                genratedAnswars.Add(englishQuestion.ans3.ToString());
+                genratedAnswars.Add(englishQuestion.wordInBlank.ToString());
+                this.AnswarAssigner(genratedAnswars, btnTextArray);
+            }
+        }
         //answar1Text.text = englishQuestion.ans1.ToString();
         //answar2Text.text = englishQuestion.wordInBlank.ToString();
         //answar3Text.text = englishQuestion.ans2.ToString();
         //answar4Text.text = englishQuestion.ans3.ToString();
-        if (genratedAnswars != null)
-        {
-            genratedAnswars.Add(englishQuestion.ans1);
-            genratedAnswars.Add(englishQuestion.ans2);
-            genratedAnswars.Add(englishQuestion.ans3);
-            genratedAnswars.Add(englishQuestion.wordInBlank);
-            this.AnswarAssigner(genratedAnswars, btnTextArray);
-        }
-        
-
     }
 
     //Button Input Controlles
-    public void NextQuestion()
-    {
-        this.GenrateEnglishQuestion();
-    }
+    //public void NextQuestion()
+    //{
+    //    this.GenrateEnglishQuestion();
+    //}
 
-    public void AnswarAssigner(IList<char> answars,Text[] AnsBtnText)
+    public void AnswarAssigner(IList<string> answars,Text[] AnsBtnText)
     {
         int selectedAnswar = 0;
         for (int i = 0; i < 4; i++)
@@ -217,78 +289,160 @@ public class EnglishQuestionGentator : MonoBehaviour
             }
             selectedAnswar = Random.Range(0, answars.Count);
             AnsBtnText[i].text = answars[selectedAnswar].ToString();
-            Debug.Log(answars[selectedAnswar]);
+            //Debug.Log(answars[selectedAnswar]);
             answars.RemoveAt(selectedAnswar);
         }
     }
 
     public void CheckAnswarButton1()
     {
-        timeController.StopTimeDecrement();
-        if (answar1Text.text == englishQuestion.wordInBlank.ToString())
+        timeController.StopTimer();
+        if (isMathsQuestion)
         {
-            AnsButton1.image.color = Color.green;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(1);
+            if (answar1Text.text == mathsQuestion.digitInBlank.ToString())
+            {
+                AnsButton1.image.color = Color.green;
+                
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton1.image.color = Color.red;
+                //Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+            this.DisableButtons();
         }
         else
         {
-            AnsButton1.image.color = Color.red;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(0);
+            if (answar1Text.text == englishQuestion.wordInBlank.ToString())
+            {
+                AnsButton1.image.color = Color.green;
+                //Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton1.image.color = Color.red;
+                //Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+            this.DisableButtons();
         }
-        this.DisableButtons();
+        Invoke("GenrateQuestion", nextQuestionGenrationTime);
     }
     public void CheckAnswarButton2()
     {
-        timeController.StopTimeDecrement();
-        if (answar2Text.text == englishQuestion.wordInBlank.ToString())
+        timeController.StopTimer();
+        if (isMathsQuestion)
         {
-            AnsButton2.image.color = Color.green;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(1);
+            if (answar2Text.text == mathsQuestion.digitInBlank.ToString())
+            {
+                AnsButton2.image.color = Color.green;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton2.image.color = Color.red;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+            this.DisableButtons();
         }
         else
         {
-            AnsButton2.image.color = Color.red;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(0);
+            if (answar2Text.text == englishQuestion.wordInBlank.ToString())
+            {
+                AnsButton2.image.color = Color.green;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton2.image.color = Color.red;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+            this.DisableButtons();
         }
-        this.DisableButtons();
+        Invoke("GenrateQuestion", nextQuestionGenrationTime);
     }
     public void CheckAnswarButton3()
     {
-        timeController.StopTimeDecrement();
-        if (answar3Text.text == englishQuestion.wordInBlank.ToString())
+        timeController.StopTimer();
+        if (isMathsQuestion)
         {
-            AnsButton3.image.color = Color.green;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(1);
+            if (answar3Text.text == mathsQuestion.digitInBlank.ToString())
+            {
+                AnsButton3.image.color = Color.green;
+                //Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton3.image.color = Color.red;
+                //Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+            this.DisableButtons();
         }
         else
         {
-            AnsButton3.image.color = Color.red;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(0);
+            if (answar3Text.text == englishQuestion.wordInBlank.ToString())
+            {
+                AnsButton3.image.color = Color.green;
+                //Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton3.image.color = Color.red;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+
+            this.DisableButtons();
         }
-        this.DisableButtons();
+        Invoke("GenrateQuestion", nextQuestionGenrationTime);
     }
     public void CheckAnswarButton4()
     {
-        timeController.StopTimeDecrement();
-        if (answar4Text.text == englishQuestion.wordInBlank.ToString())
+        timeController.StopTimer();
+        if (isMathsQuestion)
         {
-            AnsButton4.image.color = Color.green;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(1);
+            if (answar4Text.text == mathsQuestion.digitInBlank.ToString())
+            {
+                AnsButton4.image.color = Color.green;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton4.image.color = Color.red;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+            this.DisableButtons();
         }
         else
         {
-            AnsButton4.image.color = Color.red;
-            Invoke("GenrateEnglishQuestion", nextQuestionGenrationTime);
-            this.DataUpdater(0);
+            if (answar4Text.text == englishQuestion.wordInBlank.ToString())
+            {
+                AnsButton4.image.color = Color.green;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(1);
+            }
+            else
+            {
+                AnsButton4.image.color = Color.red;
+               // Invoke("GenrateQuestion", nextQuestionGenrationTime);
+                this.DataUpdater(0);
+            }
+
+            this.DisableButtons();
         }
-        this.DisableButtons();
+        Invoke("GenrateQuestion", nextQuestionGenrationTime);
     }
 
     public void DisableButtons()
@@ -345,9 +499,9 @@ public class EnglishQuestionGentator : MonoBehaviour
         progressText.text = "Progress: " + progress + "/" + totalQustions;
         if (progress == totalQustions)
         {
-            timeController.isFinalResultShown = true;
             quizController.ShowFinalResults(correctAnswars, wrongAnswars, totalAnswars);
-            timeController.StopTimeDecrement();
+            timeController.StopTimer();
+            //timeController.ResetTimer();
         }
     }
 
@@ -371,6 +525,22 @@ public class EnglishQuestionGentator : MonoBehaviour
         wrongAnswars = 0;
         progress = 0;
         timeController.RestartTimer();
+
+        totalAnswaresText.text = "Total Answars: " + totalAnswars;
+        correctAnswarsText.text = "Correct Answars: " + correctAnswars;
+        wrongAnswarsText.text = "Wrong Answars: " + wrongAnswars;
+        progressText.text = "Progress: " + progress + "/" + totalQustions;
+        GenrateQuestion();
+    }
+
+    public void ExitQuiz()
+    {
+        quizController.ExitFinalResults();
+        totalAnswars = 0;
+        correctAnswars = 0;
+        wrongAnswars = 0;
+        progress = 0;
+        timeController.StopTimer();
 
         totalAnswaresText.text = "Total Answars: " + totalAnswars;
         correctAnswarsText.text = "Correct Answars: " + correctAnswars;

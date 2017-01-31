@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class QuizController : MonoBehaviour {
     public EnglishQuestionGentator englishQuestionGenrator;
-    public TimeController timeContlroller;
+    public TimeUpdate timeContlroller;
 
     public GameObject finalResultsPanel;
     public Text correctAnswarsTxt;
@@ -25,18 +25,24 @@ public class QuizController : MonoBehaviour {
     //TA: Total Answars
     public void ShowFinalResults(int CA, int WA, int TA)
     {
-        timeContlroller.gameObject.SetActive(false);
         correctAnswarsTxt.text = "Correct Answars: " + CA;
         wrongAnswarsTxt.text = "Wrong Answars: " + WA;
         totalAnswatsTxt.text = "Total Answars: " + TA;
-		//float a = ((float)CA / (float)TA);
+        timeContlroller.StopTimer();
+        //float a = ((float)CA / (float)TA);
         percentageTxt.text = "Percentage: " + Mathf.RoundToInt((((float)CA / (float)TA) * 100))+" %";
         finalResultsPanel.SetActive(true);
     }
 
+    public void ExitFinalResults()
+    {
+        finalResultsPanel.SetActive(false);
+    }
+
     public void RestartQuiz()
     {
-        timeContlroller.gameObject.SetActive(true);
+        //timeContlroller.gameObject.SetActive(true);
         englishQuestionGenrator.RestartQuiz();
+        timeContlroller.RestartTimer();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenueButtonController : MonoBehaviour {
 
@@ -36,7 +37,6 @@ public class MainMenueButtonController : MonoBehaviour {
 
     public void QuizButton()
     {
-        //quizCanvas.SetActive(true);
-        //thisCanvas.SetActive(false);
+        SceneManager.LoadScene(2);
     }
 }
